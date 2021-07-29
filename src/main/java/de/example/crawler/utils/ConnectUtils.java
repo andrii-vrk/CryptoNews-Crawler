@@ -12,7 +12,7 @@ public class ConnectUtils {
     private static final Logger logger = LoggerFactory.getLogger(ConnectUtils.class.getSimpleName());
 
     private static final int DEFAULT_TIMEOUT = 60 * 1000; // ms
-    private static final String USER_AGENT = "CryptoNews Scraper (compatible; Mozilla/5.0; https://example.com))";
+    private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36";
 
     public static Document getHTML(String targetUrl) {
         HttpRequest request = prepareRequest(targetUrl);
