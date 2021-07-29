@@ -24,6 +24,10 @@ public abstract class AbstractScraper {
 
     public abstract String getDateFormat(Locale locale);
 
+    public ScrapeResults startScrapping() {
+        return new ScrapeResults(getClass().getSimpleName(), this.scrape());
+    }
+
     protected Date parseDate(String rawDate, Locale locale) {
         if (rawDate == null || rawDate.isEmpty()) {
             return new Date();

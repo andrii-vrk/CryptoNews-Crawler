@@ -11,9 +11,9 @@ public class Article {
     private final String url;
     private final String description;
     private final String content;
-    private final String previewImageUrl;
+    private final String imageUrl;
 
-    public Article(int id, int sourceId, Date date, String title, String url, String description, String content, String previewImageUrl) {
+    public Article(int id, int sourceId, Date date, String title, String url, String description, String content, String imageUrl) {
         this.id = id;
         this.sourceId = sourceId;
         this.date = date;
@@ -21,7 +21,11 @@ public class Article {
         this.url = url;
         this.description = description;
         this.content = content;
-        this.previewImageUrl = previewImageUrl;
+        this.imageUrl = imageUrl;
+    }
+
+    public Article(int sourceId, Date date, String title, String url, String description, String content, String imageUrl) {
+        this(0, sourceId, date, title, url, description, content, imageUrl);
     }
 
     public int getId() {
@@ -52,8 +56,8 @@ public class Article {
         return content;
     }
 
-    public String getPreviewImageUrl() {
-        return previewImageUrl;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     @Override
@@ -66,7 +70,7 @@ public class Article {
                 ", url='" + url + '\'' +
                 ", description='" + description + '\'' +
                 ", content='" + content + '\'' +
-                ", previewImageUrl='" + previewImageUrl + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
 }

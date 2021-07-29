@@ -22,11 +22,6 @@ public class CryptoPotatoScraper extends AbstractScraper {
     private static final String ROOT_URL = "https://cryptopotato.com";
 
     @Override
-    public String getDateFormat(Locale locale) {
-        return "yyyy-MM-dd HH:mm";
-    }
-
-    @Override
     public List<Article> scrape() {
         Document document = ConnectUtils.getHTML(ROOT_URL + "/crypto-news/");
 
@@ -43,19 +38,21 @@ public class CryptoPotatoScraper extends AbstractScraper {
         final Element titleEl = element.select("a").first();
         final String title = titleEl.attr("title");
         final String url = titleEl.attr("abs:href");
-//        final String imageUrl = titleEl.select("img").outerHtml(); // decode base64
-        final String imageUrl = null;
+        final String imageUrl = titleEl.select("img").attr("src");
 
-        final Element rawDate = element.select("div.entry-meta").first();
-        final String day = rawDate.select("time").attr("datetime");
-        final String time = rawDate.select("span.entry-time").text();
+        final Element rawDateEl = element.select("div.entry-meta").first();
+        final String day = rawDateEl.select("time").attr("datetime");
+        final String time = rawDateEl.select("span.entry-time").text();
         final Date date = parseDate(day + " " + time, Locale.ENGLISH);
         final String description = element.select("div.entry-excerpt p").text();
         final String content = getFullArticle(url);
 
-        Article article = new Article(0, sourceId, date, title, url, description, content, imageUrl);
-        logger.info(article.toString());
-        return article;
+        return new Article(sourceId, date, title, url, description, content, imageUrl);
+    }
+
+    @Override
+    public String getDateFormat(Locale locale) {
+        return "yyyy-MM-dd HH:mm";
     }
 
     protected String getFullArticle(Document document) {
@@ -74,6 +71,4 @@ public class CryptoPotatoScraper extends AbstractScraper {
         AbstractScraper as = new CryptoPotatoScraper();
         as.scrape();
     }
-
-
 }
